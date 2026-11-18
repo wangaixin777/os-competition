@@ -1,0 +1,21 @@
+# 编译产物
+target/
+*.o
+*.elf
+*.bin
+fs.img
+*.log
+
+# QEMU临时文件
+*.qcow2
+*.tmp
+
+# 编辑器缓存
+.vscode/
+.idea/
+.DS_Store
+*~
+
+# 隐私配置
+*.key
+settings.json
