@@ -66,6 +66,8 @@ struct proc {
   int tmask;                    // trace mask
   // lab3 调度算法字段（CP①②添加）
   int timeslice;                // CP① 时间片（RR 用）
+  int mfq_level;                // 当前 MFQ 队列级别
+  int mfq_remaining;            // 当前级别剩余的 CPU tick
   int priority;                 // CP② 优先级（priority scheduling 用，数值越小越高）
 };
 
@@ -89,6 +91,7 @@ void            userinit(void);
 int             wait(uint64);
 void            wakeup(void*);
 void            yield(void);
+void            sched_tick(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
