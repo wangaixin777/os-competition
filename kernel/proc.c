@@ -1,4 +1,4 @@
-
+#include "sched.h"
 #include "include/types.h"
 #include "include/param.h"
 #include "include/memlayout.h"
@@ -23,6 +23,10 @@ struct proc *initproc;
 
 int nextpid = 1;
 struct spinlock pid_lock;
+
+// ========== 新增：全局当前调度器实例 ==========
+const struct sched_ops *current_scheduler;
+// ==========================================
 
 extern void forkret(void);
 extern void swtch(struct context*, struct context*);
@@ -573,6 +577,24 @@ pick_next_proc(void)
   }
   return 0;
 }
+// ========== 新增：调度器初始化函数 ==========
+void
+scheduler_init(void)
+{
+#if DEFAULT_SCHED_MODE == SCHED_MODE_RR
+    current_scheduler = &rr_scheduler;
+    printf("[sched] Using scheduler: Round-Robin (RR)\n");
+#elif DEFAULT_SCHED_MODE == SCHED_MODE_MFQ
+    current_scheduler = &mfq_scheduler;
+    printf("[sched] Using scheduler: Multi-Level Feedback Queue (MFQ)\n");
+#else
+    current_scheduler = &rr_scheduler;
+    printf("[sched] Unknown mode, fallback to RR\n");
+#endif
+
+    current_scheduler->init();
+}
+// ==========================================
 
 // Per-CPU process scheduler.
 //   - picks one RUNNABLE process via pick_next_proc() (CP③ controls strategy)
@@ -591,6 +613,10 @@ scheduler(void)
     intr_on();
 
     p = pick_next_proc();   // CP③：学生改 pick_next_proc 实现 priority 调度
+    // ========== 新增：调用调度器选择下一个进程 ==========
+    p = current_scheduler->pick_next_proc();
+    // ==========================================
+    
     if(p) {
       acquire(&p->lock);
       if(p->state == RUNNABLE) {   // re-check（pick 无锁，状态可能已变）

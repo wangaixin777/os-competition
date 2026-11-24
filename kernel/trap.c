@@ -13,6 +13,9 @@
 #include "include/timer.h"
 #include "include/disk.h"
 
+// ========== 新增：调度器头文件 ==========
+#include "include/sched.h"
+// ======================================
 extern char trampoline[], uservec[], userret[];
 
 // in kernelvec.S, calls kerneltrap().
@@ -90,9 +93,11 @@ usertrap(void)
   if(p->killed)
     exit(-1);
 
-  // give up the CPU if this is a timer interrupt.
+  
+    // give up the CPU if this is a timer interrupt.
   if(which_dev == 2)
-    yield();
+    current_scheduler->time_tick();
+
 
   usertrapret();
 }
@@ -169,9 +174,14 @@ kerneltrap() {
   // printf("which_dev: %d\n", which_dev);
   
   // give up the CPU if this is a timer interrupt.
+  //if(which_dev == 2 && myproc() != 0 && myproc()->state == RUNNING) {
+    //yield();
+  //}
+    // give up the CPU if this is a timer interrupt.
   if(which_dev == 2 && myproc() != 0 && myproc()->state == RUNNING) {
-    yield();
+    current_scheduler->time_tick();
   }
+
   // the yield() may have caused some traps to occur,
   // so restore trap registers for use by kernelvec.S's sepc instruction.
   w_sepc(sepc);

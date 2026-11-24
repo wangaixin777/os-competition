@@ -1,6 +1,8 @@
 // Copyright (c) 2006-2019 Frans Kaashoek, Robert Morris, Russ Cox,
 //                         Massachusetts Institute of Technology
-
+// ========== 新增：调度器头文件 ==========
+#include "include/sched.h"
+// ======================================
 #include "include/types.h"
 #include "include/param.h"
 #include "include/memlayout.h"
@@ -80,5 +82,8 @@ main(unsigned long hartid, unsigned long dtb_pa)
     plicinithart();  // ask PLIC for device interrupts
     printf("hart %d init done\n", hartid);
   }
+  // ========== 新增：调度器初始化 ==========
+  scheduler_init();
+  // ======================================
   scheduler();
 }
