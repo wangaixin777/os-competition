@@ -36,6 +36,10 @@ struct sched_ops {
 
 // 全局当前调度器实例
 extern const struct sched_ops *current_scheduler;
+// ========== 新增：两个调度器实例的外部声明 ==========
+extern const struct sched_ops rr_scheduler;
+extern const struct sched_ops mfq_scheduler;
+// ==================================================
 
 // 调度器初始化入口
 void scheduler_init(void);

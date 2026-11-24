@@ -681,7 +681,7 @@ scheduler(void)
 
     p = pick_next_proc();   // CP③：学生改 pick_next_proc 实现 priority 调度
     // ========== 新增：调用调度器选择下一个进程 ==========
-    p = current_scheduler->pick_next_proc();
+    p = current_scheduler->pick_next();
     // ==========================================
     
     if(p) {
