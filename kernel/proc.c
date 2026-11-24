@@ -1,10 +1,11 @@
-#include "sched.h"
+
 #include "include/types.h"
 #include "include/param.h"
 #include "include/memlayout.h"
 #include "include/riscv.h"
 #include "include/spinlock.h"
 #include "include/proc.h"
+#include "include/sched.h"
 #include "include/intr.h"
 #include "include/kalloc.h"
 #include "include/printf.h"

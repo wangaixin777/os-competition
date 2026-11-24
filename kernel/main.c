@@ -1,8 +1,6 @@
 // Copyright (c) 2006-2019 Frans Kaashoek, Robert Morris, Russ Cox,
 //                         Massachusetts Institute of Technology
-// ========== 新增：调度器头文件 ==========
-#include "include/sched.h"
-// ======================================
+
 #include "include/types.h"
 #include "include/param.h"
 #include "include/memlayout.h"
@@ -14,6 +12,9 @@
 #include "include/timer.h"
 #include "include/trap.h"
 #include "include/proc.h"
+// ========== 新增：调度器头文件 ==========
+#include "include/sched.h"
+// ======================================
 #include "include/plic.h"
 #include "include/vm.h"
 #include "include/disk.h"

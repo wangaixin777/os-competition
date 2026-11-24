@@ -2,6 +2,8 @@
 #define SCHED_H
 
 #include "proc.h"
+#include "types.h"   // 新增：先加载 uint64 等基础类型定义
+#include "proc.h"    // 同目录直接写文件名，不要加 include/ 前缀
 
 // 调度器模式编号
 #define SCHED_MODE_RR   0   // 轮转调度（基线原版）
