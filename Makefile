@@ -2,6 +2,8 @@
 platform	:= qemu
 # mode := debug
 mode := release
+scheduler ?= mfq
+mfq_trace ?= 0
 K=kernel
 U=xv6-user
 T=target
@@ -80,6 +82,14 @@ CFLAGS += -MD
 CFLAGS += -mcmodel=medany
 CFLAGS += -ffreestanding -fno-common -nostdlib -mno-relax
 CFLAGS += -I.
+ifeq ($(scheduler),mfq)
+MFQ_CFLAGS := -DSCHED_MFQ
+ifeq ($(mfq_trace),1)
+MFQ_CFLAGS += -DMFQ_TRACE
+endif
+else ifneq ($(scheduler),rr)
+$(error scheduler must be mfq or rr)
+endif
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
 
 ifeq ($(mode), debug)
@@ -108,6 +118,14 @@ $T/kernel: $(OBJS) $(linker) $U/initcode
 	@$(OBJDUMP) -t $T/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > $T/kernel.sym
 
 build: $T/kernel userprogs
+
+# Recompile the policy when switching modes without make clean.
+.PHONY: force-scheduler
+$K/proc.o: CFLAGS += $(MFQ_CFLAGS)
+$K/proc.o: force-scheduler
+
+# Process layout is shared by several kernel translation units.
+$(filter-out %entry_qemu.o %entry_k210.o %swtch.o %trampoline.o %kernelvec.o,$(OBJS)): $K/include/proc.h
 
 # Compile RustSBI
 RUSTSBI:
@@ -224,6 +242,7 @@ UPROGS=\
 	$U/_strace\
 	$U/_mv\
 	$U/_schedtest\
+	$U/_mfqtest\
 	$U/_halt\
 
 	# $U/_forktest\

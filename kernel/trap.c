@@ -96,8 +96,12 @@ usertrap(void)
   
     // give up the CPU if this is a timer interrupt.
   if(which_dev == 2)
+<<<<<<< HEAD
     current_scheduler->time_tick();
 
+=======
+    sched_tick();
+>>>>>>> 0c98296ed1d39758edc4dfc1fc565812f4ddd02e
 
   usertrapret();
 }

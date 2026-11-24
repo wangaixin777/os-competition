@@ -33,6 +33,61 @@ extern void swtch(struct context*, struct context*);
 static void wakeup1(struct proc *chan);
 static void freeproc(struct proc *p);
 
+#ifdef SCHED_MFQ
+#define MFQ_LEVELS 4
+
+static const int mfq_quantum[MFQ_LEVELS] = {1, 2, 4, 8};
+
+struct mfq_queue {
+  struct proc *entries[NPROC];
+  int head;
+  int count;
+};
+
+static struct spinlock mfq_lock;
+static struct mfq_queue mfq_queues[MFQ_LEVELS];
+#endif
+
+// Caller holds p->lock and is publishing a new RUNNABLE transition.
+static void
+make_runnable(struct proc *p)
+{
+  p->state = RUNNABLE;
+#ifdef SCHED_MFQ
+  acquire(&mfq_lock);
+  struct mfq_queue *q = &mfq_queues[p->mfq_level];
+  if(q->count == NPROC)
+    panic("mfq queue full");
+  q->entries[(q->head + q->count) % NPROC] = p;
+  q->count++;
+  release(&mfq_lock);
+#endif
+}
+
+#ifdef SCHED_MFQ
+// Popping reserves this process for the selecting CPU. Release mfq_lock
+// before taking p->lock, since producers hold p->lock while enqueuing.
+static struct proc *
+mfq_dequeue(void)
+{
+  struct proc *p = 0;
+
+  acquire(&mfq_lock);
+  for(int level = 0; level < MFQ_LEVELS; level++){
+    struct mfq_queue *q = &mfq_queues[level];
+    if(q->count == 0)
+      continue;
+    p = q->entries[q->head];
+    q->entries[q->head] = 0;
+    q->head = (q->head + 1) % NPROC;
+    q->count--;
+    break;
+  }
+  release(&mfq_lock);
+  return p;
+}
+#endif
+
 extern char trampoline[]; // trampoline.S
 
 void reg_info(void) {
@@ -58,6 +113,9 @@ procinit(void)
   struct proc *p;
   
   initlock(&pid_lock, "nextpid");
+#ifdef SCHED_MFQ
+  initlock(&mfq_lock, "mfq");
+#endif
   for(p = proc; p < &proc[NPROC]; p++) {
       initlock(&p->lock, "proc");
 
@@ -146,6 +204,11 @@ found:
   p->pid = allocpid();
   p->priority = 0;       // 默认最高优先级（数值越小越高），与教案一致
   p->timeslice = 0;
+
+#ifdef SCHED_MFQ
+  p->mfq_level = 0;
+  p->mfq_remaining = mfq_quantum[0];
+#endif
 
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == NULL){
@@ -308,9 +371,8 @@ userinit(void)
 
   safestrcpy(p->name, "initcode", sizeof(p->name));
 
-  p->state = RUNNABLE;
-
   p->tmask = 0;
+  make_runnable(p);
 
   release(&p->lock);
   #ifdef DEBUG
@@ -381,7 +443,7 @@ fork(void)
 
   pid = np->pid;
 
-  np->state = RUNNABLE;
+  make_runnable(np);
 
   release(&np->lock);
 
@@ -568,6 +630,9 @@ wait(uint64 addr)
 struct proc *
 pick_next_proc(void)
 {
+#ifdef SCHED_MFQ
+  return mfq_dequeue();
+#else
   // todo（CP③）：把默认选择策略改成按优先级选择可运行进程
   // 占位：仍采用简单可运行进程选择，系统能跑但无优先级区分
   struct proc *p;
@@ -576,6 +641,7 @@ pick_next_proc(void)
       return p;
   }
   return 0;
+#endif
 }
 // ========== 新增：调度器初始化函数 ==========
 void
@@ -619,9 +685,13 @@ scheduler(void)
     
     if(p) {
       acquire(&p->lock);
-      if(p->state == RUNNABLE) {   // re-check（pick 无锁，状态可能已变）
+      if(p->state == RUNNABLE) {   // RR selects without holding p->lock.
         p->state = RUNNING;
         c->proc = p;
+#ifdef MFQ_TRACE
+        printf("mfq run pid=%d Q%d remaining=%d\n",
+               p->pid, p->mfq_level, p->mfq_remaining);
+#endif
         w_satp(MAKE_SATP(p->kpagetable));
         sfence_vma();
         swtch(&c->context, &p->context);
@@ -666,15 +736,47 @@ sched(void)
   mycpu()->intena = intena;
 }
 
-// Give up the CPU for one scheduling round.
-void
-yield(void)
+static void
+yield_current(int from_timer)
 {
   struct proc *p = myproc();
   acquire(&p->lock);
-  p->state = RUNNABLE;
+#ifdef SCHED_MFQ
+  if(from_timer){
+    if(--p->mfq_remaining > 0){
+      release(&p->lock);
+      return;
+    }
+#ifdef MFQ_TRACE
+    int previous_level = p->mfq_level;
+#endif
+    if(p->mfq_level < MFQ_LEVELS - 1)
+      p->mfq_level++;
+    p->mfq_remaining = mfq_quantum[p->mfq_level];
+#ifdef MFQ_TRACE
+    printf("mfq expire pid=%d Q%d->Q%d\n",
+           p->pid, previous_level, p->mfq_level);
+#endif
+  }
+#else
+  (void)from_timer;
+#endif
+  make_runnable(p);
   sched();
   release(&p->lock);
+}
+
+// Voluntary yield retains the remaining time slice.
+void
+yield(void)
+{
+  yield_current(0);
+}
+
+void
+sched_tick(void)
+{
+  yield_current(1);
 }
 
 // A fork child's very first scheduling by scheduler()
@@ -745,7 +847,7 @@ wakeup(void *chan)
   for(p = proc; p < &proc[NPROC]; p++) {
     acquire(&p->lock);
     if(p->state == SLEEPING && p->chan == chan) {
-      p->state = RUNNABLE;
+      make_runnable(p);
     }
     release(&p->lock);
   }
@@ -759,7 +861,7 @@ wakeup1(struct proc *p)
   if(!holding(&p->lock))
     panic("wakeup1");
   if(p->chan == p && p->state == SLEEPING) {
-    p->state = RUNNABLE;
+    make_runnable(p);
   }
 }
 
@@ -777,7 +879,7 @@ kill(int pid)
       p->killed = 1;
       if(p->state == SLEEPING){
         // Wake process from sleep().
-        p->state = RUNNABLE;
+        make_runnable(p);
       }
       release(&p->lock);
       return 0;
