@@ -6,6 +6,9 @@
 #include "include/proc.h"
 #include "include/sched.h"
 
+// ========== 新增：声明外部全局进程表数组 ==========
+extern struct proc proc[NPROC];
+// ================================================
 /*
  * RR 调度器初始化
  * 原版 RR 无需额外初始化，空实现即可
