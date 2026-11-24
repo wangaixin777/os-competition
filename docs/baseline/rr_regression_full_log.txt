@@ -1,0 +1,633 @@
+脚本启动于 2026-11-24 14:16:39+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="80" LINES="24"]
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ makwe[K[Ke clean
+[?2004lrm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+target/* \
+xv6-user/initcode xv6-user/initcode.out \
+kernel/kernel \
+.gdbinit \
+xv6-user/usys.S \
+xv6-user/_init xv6-user/_sh xv6-user/_cat xv6-user/_echo xv6-user/_grep xv6-user/_ls xv6-user/_kill xv6-user/_mkdir xv6-user/_xargs xv6-user/_sleep xv6-user/_find xv6-user/_rm xv6-user/_wc xv6-user/_test xv6-user/_usertests xv6-user/_strace xv6-user/_mv xv6-user/_schedtest xv6-user/_mfqtest xv6-user/_halt 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make build
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry_qemu.o kernel/entry_qemu.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/intr.o kernel/intr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/main.o kernel/main.c
+In file included from [01m[Kkernel/include/proc.h:5[m[K,
+                 from [01m[Kkernel/include/sched.h:4[m[K,
+                 from [01m[Kkernel/main.c:4[m[K:
+[01m[Kkernel/include/riscv.h:5:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+    5 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_mhartid[m[K':
+[01m[Kkernel/include/riscv.h:8:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+    8 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:21:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   21 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_mstatus[m[K':
+[01m[Kkernel/include/riscv.h:24:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   24 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:30:11:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   30 | w_mstatus([01;31m[Kuint64[m[K x)
+      |           [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:39:8:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   39 | w_mepc([01;31m[Kuint64[m[K x)
+      |        [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:52:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   52 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_sstatus[m[K':
+[01m[Kkernel/include/riscv.h:55:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   55 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:61:11:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   61 | w_sstatus([01;31m[Kuint64[m[K x)
+      |           [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:67:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   67 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_sip[m[K':
+[01m[Kkernel/include/riscv.h:70:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   70 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:76:7:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   76 | w_sip([01;31m[Kuint64[m[K x)
+      |       [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:85:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   85 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_sie[m[K':
+[01m[Kkernel/include/riscv.h:88:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   88 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:94:7:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+   94 | w_sie([01;31m[Kuint64[m[K x)
+      |       [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:103:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  103 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_mie[m[K':
+[01m[Kkernel/include/riscv.h:106:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  106 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:112:7:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  112 | w_mie([01;31m[Kuint64[m[K x)
+      |       [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:121:8:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  121 | w_sepc([01;31m[Kuint64[m[K x)
+      |        [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:126:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  126 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_sepc[m[K':
+[01m[Kkernel/include/riscv.h:129:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  129 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:135:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  135 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_medeleg[m[K':
+[01m[Kkernel/include/riscv.h:138:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  138 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:144:11:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  144 | w_medeleg([01;31m[Kuint64[m[K x)
+      |           [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:150:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  150 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_mideleg[m[K':
+[01m[Kkernel/include/riscv.h:153:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  153 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:159:11:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  159 | w_mideleg([01;31m[Kuint64[m[K x)
+      |           [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:167:9:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  167 | w_stvec([01;31m[Kuint64[m[K x)
+      |         [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:172:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  172 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_stvec[m[K':
+[01m[Kkernel/include/riscv.h:175:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  175 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:182:9:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  182 | w_mtvec([01;31m[Kuint64[m[K x)
+      |         [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:195:8:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  195 | w_satp([01;31m[Kuint64[m[K x)
+      |        [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:200:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  200 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_satp[m[K':
+[01m[Kkernel/include/riscv.h:203:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  203 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:210:12:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  210 | w_sscratch([01;31m[Kuint64[m[K x)
+      |            [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:216:12:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  216 | w_mscratch([01;31m[Kuint64[m[K x)
+      |            [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:222:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  222 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_scause[m[K':
+[01m[Kkernel/include/riscv.h:225:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  225 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:231:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  231 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_stval[m[K':
+[01m[Kkernel/include/riscv.h:234:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  234 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:241:14:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  241 | w_mcounteren([01;31m[Kuint64[m[K x)
+      |              [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:246:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  246 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_mcounteren[m[K':
+[01m[Kkernel/include/riscv.h:249:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  249 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:255:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  255 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_time[m[K':
+[01m[Kkernel/include/riscv.h:258:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  258 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kintr_on[m[K':
+[01m[Kkernel/include/riscv.h:269:3:[m[K [01;31m[Kerror: [m[Kimplicit declaration of function '[01m[Kw_sstatus[m[K'; did you mean '[01m[Kr_sstatus[m[K'? [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wimplicit-function-declaration-Werror=implicit-function-declaration]8;;[m[K]
+  269 |   [01;31m[Kw_sstatus[m[K(r_sstatus() | SSTATUS_SIE);
+      |   [01;31m[K^~~~~~~~~[m[K
+      |   [32m[Kr_sstatus[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kintr_get[m[K':
+[01m[Kkernel/include/riscv.h:283:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  283 |   [01;31m[Kuint64[m[K x = r_sstatus();
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:287:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  287 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_sp[m[K':
+[01m[Kkernel/include/riscv.h:290:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  290 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:297:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  297 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_tp[m[K':
+[01m[Kkernel/include/riscv.h:300:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  300 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:306:6:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  306 | w_tp([01;31m[Kuint64[m[K x)
+      |      [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:311:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  311 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_ra[m[K':
+[01m[Kkernel/include/riscv.h:314:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  314 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:319:15:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  319 | static inline [01;31m[Kuint64[m[K
+      |               [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K In function '[01m[Kr_fp[m[K':
+[01m[Kkernel/include/riscv.h:322:3:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  322 |   [01;31m[Kuint64[m[K x;
+      |   [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:[m[K At top level:
+[01m[Kkernel/include/riscv.h:367:9:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  367 | typedef [01;31m[Kuint64[m[K pte_t;
+      |         [01;31m[K^~~~~~[m[K
+[01m[Kkernel/include/riscv.h:368:9:[m[K [01;31m[Kerror: [m[Kunknown type name '[01m[Kuint64[m[K'
+  368 | typedef [01;31m[Kuint64[m[K *pagetable_t; // 512 PTEs
+      |         [01;31m[K^~~~~~[m[K
+cc1: all warnings being treated as errors
+make: *** [<内置>：kernel/main.o] 错误 1
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make clean
+[?2004lrm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+target/* \
+xv6-user/initcode xv6-user/initcode.out \
+kernel/kernel \
+.gdbinit \
+xv6-user/usys.S \
+xv6-user/_init xv6-user/_sh xv6-user/_cat xv6-user/_echo xv6-user/_grep xv6-user/_ls xv6-user/_kill xv6-user/_mkdir xv6-user/_xargs xv6-user/_sleep xv6-user/_find xv6-user/_rm xv6-user/_wc xv6-user/_test xv6-user/_usertests xv6-user/_strace xv6-user/_mv xv6-user/_schedtest xv6-user/_mfqtest xv6-user/_halt 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make build
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry_qemu.o kernel/entry_qemu.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/intr.o kernel/intr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/main.o kernel/main.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/vm.o kernel/vm.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -DSCHED_MFQ   -c -o kernel/proc.o kernel/proc.c
+[01m[Kkernel/proc.c:[m[K In function '[01m[Kscheduler_init[m[K':
+[01m[Kkernel/proc.c:652:26:[m[K [01;31m[Kerror: [m[K'[01m[Krr_scheduler[m[K' undeclared (first use in this function); did you mean '[01m[Kscheduler[m[K'?
+  652 |     current_scheduler = &[01;31m[Krr_scheduler[m[K;
+      |                          [01;31m[K^~~~~~~~~~~~[m[K
+      |                          [32m[Kscheduler[m[K
+[01m[Kkernel/proc.c:652:26:[m[K [01;36m[Knote: [m[Keach undeclared identifier is reported only once for each function it appears in
+[01m[Kkernel/proc.c:[m[K In function '[01m[Kscheduler[m[K':
+[01m[Kkernel/proc.c:684:28:[m[K [01;31m[Kerror: [m[K'[01m[Kconst struct sched_ops[m[K' has no member named '[01m[Kpick_next_proc[m[K'; did you mean '[01m[Kpick_next[m[K'?
+  684 |     p = current_scheduler->[01;31m[Kpick_next_proc[m[K();
+      |                            [01;31m[K^~~~~~~~~~~~~~[m[K
+      |                            [32m[Kpick_next[m[K
+make: *** [<内置>：kernel/proc.o] 错误 1
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make clean
+[?2004lrm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+target/* \
+xv6-user/initcode xv6-user/initcode.out \
+kernel/kernel \
+.gdbinit \
+xv6-user/usys.S \
+xv6-user/_init xv6-user/_sh xv6-user/_cat xv6-user/_echo xv6-user/_grep xv6-user/_ls xv6-user/_kill xv6-user/_mkdir xv6-user/_xargs xv6-user/_sleep xv6-user/_find xv6-user/_rm xv6-user/_wc xv6-user/_test xv6-user/_usertests xv6-user/_strace xv6-user/_mv xv6-user/_schedtest xv6-user/_mfqtest xv6-user/_halt 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make build
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry_qemu.o kernel/entry_qemu.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/intr.o kernel/intr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/main.o kernel/main.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/vm.o kernel/vm.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -DSCHED_MFQ   -c -o kernel/proc.o kernel/proc.c
+riscv64-unknown-elf-gcc    -c -o kernel/swtch.o kernel/swtch.S
+riscv64-unknown-elf-gcc    -c -o kernel/trampoline.o kernel/trampoline.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/trap.o kernel/trap.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/syscall.o kernel/syscall.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysproc.o kernel/sysproc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/bio.o kernel/bio.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sleeplock.o kernel/sleeplock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/file.o kernel/file.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/pipe.o kernel/pipe.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/exec.o kernel/exec.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysfile.o kernel/sysfile.c
+riscv64-unknown-elf-gcc    -c -o kernel/kernelvec.o kernel/kernelvec.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/timer.o kernel/timer.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/disk.o kernel/disk.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/fat32.o kernel/fat32.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/plic.o kernel/plic.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/console.o kernel/console.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sched_rr.o kernel/sched_rr.c
+[01m[Kkernel/sched_rr.c:1:10:[m[K [01;31m[Kfatal error: [m[Ktypes.h: No such file or directory
+    1 | #include [01;31m[K"types.h"[m[K
+      |          [01;31m[K^~~~~~~~~[m[K
+compilation terminated.
+make: *** [<内置>：kernel/sched_rr.o] 错误 1
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ ms[Kake clean
+[?2004lrm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+target/* \
+xv6-user/initcode xv6-user/initcode.out \
+kernel/kernel \
+.gdbinit \
+xv6-user/usys.S \
+xv6-user/_init xv6-user/_sh xv6-user/_cat xv6-user/_echo xv6-user/_grep xv6-user/_ls xv6-user/_kill xv6-user/_mkdir xv6-user/_xargs xv6-user/_sleep xv6-user/_find xv6-user/_rm xv6-user/_wc xv6-user/_test xv6-user/_usertests xv6-user/_strace xv6-user/_mv xv6-user/_schedtest xv6-user/_mfqtest xv6-user/_halt 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make build
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry_qemu.o kernel/entry_qemu.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/intr.o kernel/intr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/main.o kernel/main.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/vm.o kernel/vm.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -DSCHED_MFQ   -c -o kernel/proc.o kernel/proc.c
+riscv64-unknown-elf-gcc    -c -o kernel/swtch.o kernel/swtch.S
+riscv64-unknown-elf-gcc    -c -o kernel/trampoline.o kernel/trampoline.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/trap.o kernel/trap.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/syscall.o kernel/syscall.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysproc.o kernel/sysproc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/bio.o kernel/bio.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sleeplock.o kernel/sleeplock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/file.o kernel/file.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/pipe.o kernel/pipe.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/exec.o kernel/exec.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysfile.o kernel/sysfile.c
+riscv64-unknown-elf-gcc    -c -o kernel/kernelvec.o kernel/kernelvec.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/timer.o kernel/timer.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/disk.o kernel/disk.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/fat32.o kernel/fat32.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/plic.o kernel/plic.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/console.o kernel/console.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sched_rr.o kernel/sched_rr.c
+[01m[Kkernel/sched_rr.c:[m[K In function '[01m[Krr_pick_next[m[K':
+[01m[Kkernel/sched_rr.c:27:13:[m[K [01;31m[Kerror: [m[K'[01m[Kproc[m[K' undeclared (first use in this function)
+   27 |     for(p = [01;31m[Kproc[m[K; p < &proc[NPROC]; p++) {
+      |             [01;31m[K^~~~[m[K
+[01m[Kkernel/sched_rr.c:27:13:[m[K [01;36m[Knote: [m[Keach undeclared identifier is reported only once for each function it appears in
+make: *** [<内置>：kernel/sched_rr.o] 错误 1
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make clean
+[?2004lrm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+target/* \
+xv6-user/initcode xv6-user/initcode.out \
+kernel/kernel \
+.gdbinit \
+xv6-user/usys.S \
+xv6-user/_init xv6-user/_sh xv6-user/_cat xv6-user/_echo xv6-user/_grep xv6-user/_ls xv6-user/_kill xv6-user/_mkdir xv6-user/_xargs xv6-user/_sleep xv6-user/_find xv6-user/_rm xv6-user/_wc xv6-user/_test xv6-user/_usertests xv6-user/_strace xv6-user/_mv xv6-user/_schedtest xv6-user/_mfqtest xv6-user/_halt 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make n[Kbuild
+[?2004lriscv64-unknown-elf-gcc    -c -o kernel/entry_qemu.o kernel/entry_qemu.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/printf.o kernel/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/kalloc.o kernel/kalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/intr.o kernel/intr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/spinlock.o kernel/spinlock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/string.o kernel/string.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/main.o kernel/main.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/vm.o kernel/vm.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -DSCHED_MFQ   -c -o kernel/proc.o kernel/proc.c
+riscv64-unknown-elf-gcc    -c -o kernel/swtch.o kernel/swtch.S
+riscv64-unknown-elf-gcc    -c -o kernel/trampoline.o kernel/trampoline.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/trap.o kernel/trap.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/syscall.o kernel/syscall.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysproc.o kernel/sysproc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/bio.o kernel/bio.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sleeplock.o kernel/sleeplock.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/file.o kernel/file.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/pipe.o kernel/pipe.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/exec.o kernel/exec.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sysfile.o kernel/sysfile.c
+riscv64-unknown-elf-gcc    -c -o kernel/kernelvec.o kernel/kernelvec.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/timer.o kernel/timer.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/disk.o kernel/disk.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/fat32.o kernel/fat32.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/plic.o kernel/plic.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/console.o kernel/console.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sched_rr.o kernel/sched_rr.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/sched_mfq.o kernel/sched_mfq.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o kernel/virtio_disk.o kernel/virtio_disk.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -march=rv64g -nostdinc -I. -Ikernel -c xv6-user/initcode.S -o xv6-user/initcode.o
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e start -Ttext 0 -o xv6-user/initcode.out xv6-user/initcode.o
+riscv64-unknown-elf-ld: warning: xv6-user/initcode.out has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objcopy -S -O binary xv6-user/initcode.out xv6-user/initcode
+riscv64-unknown-elf-objdump -S xv6-user/initcode.o > xv6-user/initcode.asm
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/ulib.o xv6-user/ulib.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -c -o xv6-user/usys.o xv6-user/usys.S
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/printf.o xv6-user/printf.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/umalloc.o xv6-user/umalloc.c
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/init.o xv6-user/init.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_init xv6-user/init.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_init has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_init > xv6-user/init.asm
+riscv64-unknown-elf-objdump -t xv6-user/_init | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/init.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/sh.o xv6-user/sh.c
+[01m[Kxv6-user/sh.c:[m[K In function '[01m[Kruncmd[m[K':
+[01m[Kxv6-user/sh.c:157:1:[m[K [01;35m[Kwarning: [m[Kinfinite recursion detected [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Winfinite-recursion-Winfinite-recursion]8;;[m[K]
+  157 | [01;35m[Kruncmd[m[K(struct cmd *cmd)
+      | [01;35m[K^~~~~~[m[K
+[01m[Kxv6-user/sh.c:205:5:[m[K [01;36m[Knote: [m[Krecursive call
+  205 |     [01;36m[Kruncmd(rcmd->cmd)[m[K;
+      |     [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[Kxv6-user/sh.c:225:7:[m[K [01;36m[Knote: [m[Krecursive call
+  225 |       [01;36m[Kruncmd(pcmd->left)[m[K;
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[Kxv6-user/sh.c:232:7:[m[K [01;36m[Knote: [m[Krecursive call
+  232 |       [01;36m[Kruncmd(pcmd->right)[m[K;
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[Kxv6-user/sh.c:211:7:[m[K [01;36m[Knote: [m[Krecursive call
+  211 |       [01;36m[Kruncmd(lcmd->left)[m[K;
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[Kxv6-user/sh.c:213:5:[m[K [01;36m[Knote: [m[Krecursive call
+  213 |     [01;36m[Kruncmd(lcmd->right)[m[K;
+      |     [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[Kxv6-user/sh.c:243:7:[m[K [01;36m[Knote: [m[Krecursive call
+  243 |       [01;36m[Kruncmd(bcmd->cmd)[m[K;
+      |       [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_sh xv6-user/sh.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_sh has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_sh > xv6-user/sh.asm
+riscv64-unknown-elf-objdump -t xv6-user/_sh | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/sh.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/cat.o xv6-user/cat.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_cat xv6-user/cat.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_cat has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_cat > xv6-user/cat.asm
+riscv64-unknown-elf-objdump -t xv6-user/_cat | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/cat.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/echo.o xv6-user/echo.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_echo xv6-user/echo.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_echo has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_echo > xv6-user/echo.asm
+riscv64-unknown-elf-objdump -t xv6-user/_echo | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/echo.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/grep.o xv6-user/grep.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_grep xv6-user/grep.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_grep has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_grep > xv6-user/grep.asm
+riscv64-unknown-elf-objdump -t xv6-user/_grep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/grep.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/ls.o xv6-user/ls.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_ls xv6-user/ls.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_ls has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_ls > xv6-user/ls.asm
+riscv64-unknown-elf-objdump -t xv6-user/_ls | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/ls.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/kill.o xv6-user/kill.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_kill xv6-user/kill.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_kill has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_kill > xv6-user/kill.asm
+riscv64-unknown-elf-objdump -t xv6-user/_kill | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/kill.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/mkdir.o xv6-user/mkdir.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_mkdir xv6-user/mkdir.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_mkdir has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_mkdir > xv6-user/mkdir.asm
+riscv64-unknown-elf-objdump -t xv6-user/_mkdir | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/mkdir.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/xargs.o xv6-user/xargs.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_xargs xv6-user/xargs.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_xargs has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_xargs > xv6-user/xargs.asm
+riscv64-unknown-elf-objdump -t xv6-user/_xargs | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/xargs.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/sleep.o xv6-user/sleep.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_sleep xv6-user/sleep.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_sleep has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_sleep > xv6-user/sleep.asm
+riscv64-unknown-elf-objdump -t xv6-user/_sleep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/sleep.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/find.o xv6-user/find.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_find xv6-user/find.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_find has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_find > xv6-user/find.asm
+riscv64-unknown-elf-objdump -t xv6-user/_find | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/find.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/rm.o xv6-user/rm.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_rm xv6-user/rm.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_rm has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_rm > xv6-user/rm.asm
+riscv64-unknown-elf-objdump -t xv6-user/_rm | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/rm.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/wc.o xv6-user/wc.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_wc xv6-user/wc.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_wc has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_wc > xv6-user/wc.asm
+riscv64-unknown-elf-objdump -t xv6-user/_wc | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/wc.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/test.o xv6-user/test.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_test xv6-user/test.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_test has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_test > xv6-user/test.asm
+riscv64-unknown-elf-objdump -t xv6-user/_test | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/test.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/usertests.o xv6-user/usertests.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_usertests xv6-user/usertests.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_usertests has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_usertests > xv6-user/usertests.asm
+riscv64-unknown-elf-objdump -t xv6-user/_usertests | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/usertests.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/strace.o xv6-user/strace.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_strace xv6-user/strace.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_strace has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_strace > xv6-user/strace.asm
+riscv64-unknown-elf-objdump -t xv6-user/_strace | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/strace.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/mv.o xv6-user/mv.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_mv xv6-user/mv.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_mv has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_mv > xv6-user/mv.asm
+riscv64-unknown-elf-objdump -t xv6-user/_mv | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/mv.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/schedtest.o xv6-user/schedtest.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_schedtest xv6-user/schedtest.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_schedtest has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_schedtest > xv6-user/schedtest.asm
+riscv64-unknown-elf-objdump -t xv6-user/_schedtest | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/schedtest.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/mfqtest.o xv6-user/mfqtest.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_mfqtest xv6-user/mfqtest.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_mfqtest has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_mfqtest > xv6-user/mfqtest.asm
+riscv64-unknown-elf-objdump -t xv6-user/_mfqtest | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/mfqtest.sym
+riscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU   -c -o xv6-user/halt.o xv6-user/halt.c
+riscv64-unknown-elf-ld -z max-page-size=4096 -N -e main -Ttext 0 -o xv6-user/_halt xv6-user/halt.o xv6-user/ulib.o xv6-user/usys.o xv6-user/printf.o xv6-user/umalloc.o
+riscv64-unknown-elf-ld: warning: xv6-user/_halt has a LOAD segment with RWX permissions
+riscv64-unknown-elf-objdump -S xv6-user/_halt > xv6-user/halt.asm
+riscv64-unknown-elf-objdump -t xv6-user/_halt | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > xv6-user/halt.sym
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make fs
+[?2004lmaking fs image...
+输入了 512+0 块记录
+输出了 512+0 块记录
+268435456 字节 (268 MB, 256 MiB) 已复制，0.180786 s，1.5 GB/s
+mkfs.fat 4.2 (2021-01-31)
+[sudo] ubuntu 的密码： 
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ make run
+[?2004lriscv64-unknown-elf-gcc -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb -g -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. -fno-stack-protector -D QEMU -DSCHED_MFQ   -c -o kernel/proc.o kernel/proc.c
+
+OpenSBI v1.3
+   ____                    _____ ____ _____
+  / __ \                  / ____|  _ \_   _|
+ | |  | |_ __   ___ _ __ | (___ | |_) || |
+ | |  | | '_ \ / _ \ '_ \ \___ \|  _ < | |
+ | |__| | |_) |  __/ | | |____) | |_) || |_
+  \____/| .__/ \___|_| |_|_____/|___ /_____|
+        | |
+        |_|
+
+Platform Name             : riscv-virtio,qemu
+Platform Features         : medeleg
+Platform HART Count       : 2
+Platform IPI Device       : aclint-mswi
+Platform Timer Device     : aclint-mtimer @ 10000000Hz
+Platform Console Device   : uart8250
+Platform HSM Device       : ---
+Platform PMU Device       : ---
+Platform Reboot Device    : sifive_test
+Platform Shutdown Device  : sifive_test
+Platform Suspend Device   : ---
+Platform CPPC Device      : ---
+Firmware Base             : 0x80000000
+Firmware Size             : 332 KB
+Firmware RW Offset        : 0x40000
+Firmware RW Size          : 76 KB
+Firmware Heap Offset      : 0x4a000
+Firmware Heap Size        : 36 KB (total), 2 KB (reserved), 9 KB (used), 24 KB (free)
+Firmware Scratch Size     : 4096 B (total), 760 B (used), 3336 B (free)
+Runtime SBI Version       : 1.0
+
+Domain0 Name              : root
+Domain0 Boot HART         : 0
+Domain0 HARTs             : 0*,1*
+Domain0 Region00          : 0x0000000002000000-0x000000000200ffff M: (I,R,W) S/U: ()
+Domain0 Region01          : 0x0000000080040000-0x000000008005ffff M: (R,W) S/U: ()
+Domain0 Region02          : 0x0000000080000000-0x000000008003ffff M: (R,X) S/U: ()
+Domain0 Region03          : 0x0000000000000000-0xffffffffffffffff M: (R,W,X) S/U: (R,W,X)
+Domain0 Next Address      : 0x0000000080200000
+Domain0 Next Arg1         : 0x0000000087e00000
+Domain0 Next Mode         : S-mode
+Domain0 SysReset          : yes
+Domain0 SysSuspend        : yes
+
+Boot HART ID              : 0
+Boot HART Domain          : root
+Boot HART Priv Version    : v1.12
+Boot HART Base ISA        : rv64imafdch
+Boot HART ISA Extensions  : time,sstc
+Boot HART PMP Count       : 16
+Boot HART PMP Granularity : 4
+Boot HART PMP Address Bits: 54
+Boot HART MHPM Count      : 16
+Boot HART MIDELEG         : 0x0000000000001666
+Boot HART MEDELEG         : 0x0000000000f0b509
+  (`-.            (`-.                            .-')       ('-.    _   .-')
+ ( OO ).        _(OO  )_                        .(  OO)    _(  OO)  ( '.( OO )_ 
+(_/.  \_)-. ,--(_/   ,. \  ,--.                (_)---\_)  (,------.  ,--.   ,--.) ,--. ,--.  
+ \  `.'  /  \   \   /(__/ /  .'       .-')     '  .-.  '   |  .---'  |   `.'   |  |  | |  |   
+  \     /\   \   \ /   / .  / -.    _(  OO)   ,|  | |  |   |  |      |         |  |  | | .-')
+   \   \ |    \   '   /, | .-.  '  (,------. (_|  | |  |  (|  '--.   |  |'.'|  |  |  |_|( OO )
+  .'    \_)    \     /__)' \  |  |  '------'   |  | |  |   |  .--'   |  |   |  |  |  | | `-' /
+ /  .'.  \      \   /    \  `'  /              '  '-'  '-. |  `---.  |  |   |  | ('  '-'(_.-'
+'--'   '--'      `-'      `----'                `-----'--' `------'  `--'   `--'   `-----'
+hart 0 init done
+[sched] Using scheduler: Round-Robin (RR)
+init: starting sh
+-> / $ ls
+bin                              DIR 	0
+README                           FILE	2058
+cat                              FILE	22288
+echo                             FILE	21232
+find                             FILE	23448
+grep                             FILE	24840
+halt                             FILE	20408
+init                             FILE	21912
+kill                             FILE	21136
+ls                               FILE	23448
+mfqtest                          FILE	22304
+mkdir                            FILE	21232
+mv                               FILE	23032
+rm                               FILE	21208
+schedtest                        FILE	22384
+sh                               FILE	43840
+sleep                            FILE	21192
+strace                           FILE	21560
+test                             FILE	21080
+usertests                        FILE	117632
+wc                               FILE	23096
+xargs                            FILE	22896
+-> / $ echp o test
+test
+-> / $ shed    schedtest
+set_timeslice FAILED (CP① not done?)
+-> / $ ax   QEMU: Terminated
+[?2004h]0;ubuntu@cg: ~/Desktop/lab3[01;32mubuntu@cg[00m:[01;34m~/Desktop/lab3[00m$ exit
+[?2004lexit
+
+脚本完成于 2026-11-24 14:50:34+00:00 [COMMAND_EXIT_CODE="0"]
