@@ -157,7 +157,7 @@ uartstart()
     uart_tx_r = (uart_tx_r + 1) % UART_TX_BUF_SIZE;
     
     // maybe uartputc() is waiting for space in the buffer.
-    wakeup(&uart_tx_r);
+    wakeup_io(&uart_tx_r);
     
     WriteReg(THR, c);
   }

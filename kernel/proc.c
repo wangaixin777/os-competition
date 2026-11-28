@@ -36,17 +36,66 @@ static void freeproc(struct proc *p);
 
 #ifdef SCHED_MFQ
 #define MFQ_LEVELS 4
+#define MFQ_AGING_TICKS 32
 
 static const int mfq_quantum[MFQ_LEVELS] = {1, 2, 4, 8};
 
+struct mfq_entry {
+  struct proc *proc;
+  uint64 ready_at;
+};
+
 struct mfq_queue {
-  struct proc *entries[NPROC];
+  struct mfq_entry entries[NPROC];
   int head;
   int count;
 };
 
 static struct spinlock mfq_lock;
 static struct mfq_queue mfq_queues[MFQ_LEVELS];
+
+// Hold mfq_lock while changing queue membership or an enqueued level.
+static void
+mfq_push(int level, struct mfq_entry entry)
+{
+  struct mfq_queue *q = &mfq_queues[level];
+  if(q->count == NPROC)
+    panic("mfq queue full");
+  q->entries[(q->head + q->count) % NPROC] = entry;
+  q->count++;
+}
+
+static struct mfq_entry
+mfq_pop(struct mfq_queue *q)
+{
+  struct mfq_entry entry = q->entries[q->head];
+  q->head = (q->head + 1) % NPROC;
+  q->count--;
+  return entry;
+}
+
+static void
+mfq_age(uint64 now)
+{
+  // Within each queue, older entries precede newer ones. Visit high
+  // levels first so an entry promoted by this pass moves only once.
+  for(int level = 1; level < MFQ_LEVELS; level++){
+    struct mfq_queue *q = &mfq_queues[level];
+    while(q->count > 0){
+      uint64 waited = now - q->entries[q->head].ready_at;
+      if(waited < (uint64)MFQ_AGING_TICKS * INTERVAL)
+        break;
+      struct proc *p = mfq_pop(q).proc;
+      p->mfq_level = level - 1;
+      p->mfq_remaining = mfq_quantum[p->mfq_level];
+      mfq_push(p->mfq_level, (struct mfq_entry){p, now});
+#ifdef MFQ_TRACE
+      printf("mfq aging pid=%d Q%d->Q%d waited=%d\n",
+             p->pid, level, p->mfq_level, (int)(waited / INTERVAL));
+#endif
+    }
+  }
+}
 #endif
 
 // Caller holds p->lock and is publishing a new RUNNABLE transition.
@@ -56,11 +105,7 @@ make_runnable(struct proc *p)
   p->state = RUNNABLE;
 #ifdef SCHED_MFQ
   acquire(&mfq_lock);
-  struct mfq_queue *q = &mfq_queues[p->mfq_level];
-  if(q->count == NPROC)
-    panic("mfq queue full");
-  q->entries[(q->head + q->count) % NPROC] = p;
-  q->count++;
+  mfq_push(p->mfq_level, (struct mfq_entry){p, r_time()});
   release(&mfq_lock);
 #endif
 }
@@ -69,19 +114,17 @@ make_runnable(struct proc *p)
 // Popping reserves this process for the selecting CPU. Release mfq_lock
 // before taking p->lock, since producers hold p->lock while enqueuing.
 static struct proc *
-mfq_dequeue(void)
+mfq_pick_next(void)
 {
   struct proc *p = 0;
 
   acquire(&mfq_lock);
+  mfq_age(r_time());
   for(int level = 0; level < MFQ_LEVELS; level++){
     struct mfq_queue *q = &mfq_queues[level];
     if(q->count == 0)
       continue;
-    p = q->entries[q->head];
-    q->entries[q->head] = 0;
-    q->head = (q->head + 1) % NPROC;
-    q->count--;
+    p = mfq_pop(q).proc;
     break;
   }
   release(&mfq_lock);
@@ -632,7 +675,7 @@ struct proc *
 pick_next_proc(void)
 {
 #ifdef SCHED_MFQ
-  return mfq_dequeue();
+  return mfq_pick_next();
 #else
   // todo（CP③）：把默认选择策略改成按优先级选择可运行进程
   // 占位：仍采用简单可运行进程选择，系统能跑但无优先级区分
@@ -648,15 +691,12 @@ pick_next_proc(void)
 void
 scheduler_init(void)
 {
-#if DEFAULT_SCHED_MODE == SCHED_MODE_RR
-    current_scheduler = &rr_scheduler;
-    printf("[sched] Using scheduler: Round-Robin (RR)\n");
-#elif DEFAULT_SCHED_MODE == SCHED_MODE_MFQ
+#ifdef SCHED_MFQ
     current_scheduler = &mfq_scheduler;
     printf("[sched] Using scheduler: Multi-Level Feedback Queue (MFQ)\n");
 #else
     current_scheduler = &rr_scheduler;
-    printf("[sched] Unknown mode, fallback to RR\n");
+    printf("[sched] Using scheduler: Round-Robin (RR)\n");
 #endif
 
     current_scheduler->init();
@@ -679,7 +719,6 @@ scheduler(void)
     // Avoid deadlock by ensuring that devices can interrupt.
     intr_on();
 
-    p = pick_next_proc();   // CP③：学生改 pick_next_proc 实现 priority 调度
     // ========== 新增：调用调度器选择下一个进程 ==========
     p = current_scheduler->pick_next();
     // ==========================================
@@ -840,18 +879,42 @@ sleep(void *chan, struct spinlock *lk)
 
 // Wake up all processes sleeping on chan.
 // Must be called without any p->lock.
-void
-wakeup(void *chan)
+static void
+wakeup_channel(void *chan, int io)
 {
   struct proc *p;
 
   for(p = proc; p < &proc[NPROC]; p++) {
     acquire(&p->lock);
     if(p->state == SLEEPING && p->chan == chan) {
+#ifdef SCHED_MFQ
+      if(io && p->mfq_level > 0){
+        p->mfq_level--;
+        p->mfq_remaining = mfq_quantum[p->mfq_level];
+#ifdef MFQ_TRACE
+        printf("mfq wake pid=%d Q%d->Q%d\n",
+               p->pid, p->mfq_level + 1, p->mfq_level);
+#endif
+      }
+#else
+      (void)io;
+#endif
       make_runnable(p);
     }
     release(&p->lock);
   }
+}
+
+void
+wakeup(void *chan)
+{
+  wakeup_channel(chan, 0);
+}
+
+void
+wakeup_io(void *chan)
+{
+  wakeup_channel(chan, 1);
 }
 
 // Wake up p if it is sleeping in wait(); used by exit().

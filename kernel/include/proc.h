@@ -90,6 +90,7 @@ void            sleep(void*, struct spinlock*);
 void            userinit(void);
 int             wait(uint64);
 void            wakeup(void*);
+void            wakeup_io(void*);
 void            yield(void);
 void            sched_tick(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);

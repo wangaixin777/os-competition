@@ -142,7 +142,7 @@ free_desc(int i)
     panic("virtio_disk_intr 2");
   disk.desc[i].addr = 0;
   disk.free[i] = 1;
-  wakeup(&disk.free[0]);
+  wakeup_io(&disk.free[0]);
 }
 
 // free a chain of descriptors.
@@ -272,7 +272,7 @@ virtio_disk_intr()
       panic("virtio_disk_intr status");
 
     disk.info[id].b->disk = 0;   // disk is done with buf
-    wakeup(disk.info[id].b);
+    wakeup_io(disk.info[id].b);
 
     disk.used_idx++;
   }
